@@ -1,12 +1,11 @@
 package net.petitviolet.ulid4s
 
 import java.util.Calendar
-
 import org.scalacheck.Gen
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.scalatest.{ FlatSpec, Matchers }
+import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 
-class ULIDTest extends FlatSpec with Matchers with GeneratorDrivenPropertyChecks {
+class ULIDTest extends FlatSpec with Matchers with ScalaCheckDrivenPropertyChecks {
 
   behavior of "ULIDTest"
 
