@@ -2,10 +2,11 @@ package net.petitviolet.ulid4s
 
 import java.util.Calendar
 import org.scalacheck.Gen
-import org.scalatest.{ FlatSpec, Matchers }
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 
-class ULIDTest extends FlatSpec with Matchers with ScalaCheckDrivenPropertyChecks {
+class ULIDTest extends AnyFlatSpec with Matchers with ScalaCheckDrivenPropertyChecks {
 
   behavior of "ULIDTest"
 
@@ -38,7 +39,7 @@ class ULIDTest extends FlatSpec with Matchers with ScalaCheckDrivenPropertyCheck
   }
 
   it should "timestamp valid" in {
-    forAll(Gen.calendar) { cal: Calendar =>
+    forAll(Gen.calendar) { (cal: Calendar) =>
       whenever(
         cal.getTimeInMillis > ULID.constants.MIN_TIME
           && cal.getTimeInMillis < ULID.constants.MAX_TIME) {
@@ -48,7 +49,7 @@ class ULIDTest extends FlatSpec with Matchers with ScalaCheckDrivenPropertyCheck
     }
   }
   it should "timestamp invalid" in {
-    forAll { str: String =>
+    forAll { (str: String) =>
       whenever(str.length != ULID.constants.ULID_LENGTH) {
         val result = ULID.timestamp(str)
         result shouldBe empty

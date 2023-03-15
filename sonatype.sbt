@@ -3,7 +3,7 @@ import xerial.sbt.Sonatype.GitHubHosting
 sonatypeProfileName := "net.petitviolet"
 organization := "net.petitviolet"
 
-Global / publishMavenStyle.withRank(KeyRanks.Invisible)  := true
+publishMavenStyle.withRank(KeyRanks.Invisible)  := true
 
 val githubAccount = "petitviolet"
 val githubProject = "ulid4s"

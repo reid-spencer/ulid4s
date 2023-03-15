@@ -5,25 +5,30 @@ def commonSettings(_name: String) = Seq(
   name := _name,
   organization := "net.petitviolet",
   version := VERSION,
-  crossScalaVersions := Seq("2.11.12", "2.12.12", "2.13.10"),
+  scalaVersion := "3.2.2",
+  crossScalaVersions := Seq("2.12.12", "2.13.10", "3.2.2"),
 
   libraryDependencies ++= {
     val isScala3 = scalaVersion.value.startsWith("3")
-    val stVer = if (isScala3) "3.2.15" else "3.0.8"
-    val scVer = if (isScala3) "1.15.4" else "1.14.0"
+    val stVer = "3.2.15"
+    val stPVer = stVer + ".0"
     if (isScala3)
-      Seq("org.scalatestplus" %% "scalacheck-1-17" % stVer % Test)
+      Seq(
+        "org.scalatestplus" %% "scalacheck-1-17" % stPVer % Test,
+        "org.scalatest" %% "scalatest" % stVer % Test,
+      )
     else
       Seq(
+        "org.scalatestplus" %% "scalacheck-1-17" % stPVer % Test,
         "org.scalatest" %% "scalatest" % stVer % Test,
-        "org.scalacheck" %% "scalacheck" % scVer % Test,
       )
   },
   scalacOptions ++= {
     val isScala3 = scalaVersion.value.startsWith("3")
     val isScala2_13 = scalaVersion.value.startsWith("2.13")
     if (isScala3) {
-      Seq("-deprecation", "-feature", "-Werror", "-release:11")
+      Seq("-deprecation", "-feature", "-Werror", "-release:11",
+        "-rewrite", "-source","3.0-migration")
     } else if (isScala2_13) {
       Seq("-Werror", "-deprecation", "-release:11", "-Xsource:3",
         "-Wdead-code", "-feature", "-Werror")
